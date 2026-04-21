@@ -1,15 +1,53 @@
 const promiseOne = new Promise(function(resolve, reject){
-    //Do an async task
-    // DB calls, cryptography, network
     setTimeout(function(){
         console.log('Async task is compelete');
         resolve()
     }, 1000)
 })
 
-promiseOne.then(function(){
-    console.log("Promise consumed");
+// promiseOne.then(function(){
+//     console.log("Promise consumed");
+// })
+
+const ConsumePromiseOne = async function(){
+    try {
+        await promiseOne
+        console.log("promiseOne consumed")
+    } catch (error) {
+        console.log(error)
+    }
+}
+ConsumePromiseOne()
+
+// Functions that returns promise
+function getUserData(){
+    return new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+            resolve({name: "Raju", age: 25})
+        }, 1000)
+    })
+}
+// Consuming that function by (async-await)
+
+// const ConsumingUserData = async function(){
+//     try {
+//         const data = await getUserData()
+//         console.log(data);
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+// ConsumingUserData()    
+
+// By .then and .catch
+
+getUserData().then((data)=>{
+    console.log(data)
 })
+.catch((error)=>{
+    console.log(error)
+})
+
 
 new Promise(function(resolve, reject){
     setTimeout(function(){
